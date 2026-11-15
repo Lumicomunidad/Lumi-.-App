@@ -1,0 +1,206 @@
+@import "tailwindcss";
+
+:root {
+  --lumi-yellow: #F5DF91;
+  --lumi-yellow-dark: #D9BF68;
+  --lumi-cream: #FFF9E9;
+  --lumi-ink: #0B0B0D;
+  --lumi-muted: #555555;
+  --lumi-border: #E5E5E7;
+  --lumi-surface: #FFFFFF;
+  --lumi-subtle: #F7F7F8;
+  --eclipse-black: #0B0B0D;
+  --eclipse-orange: #EE7A13;
+  --eclipse-orange-bright: #FF8A1F;
+}
+
+@layer base {
+  html {
+    font-family: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
+    color: var(--lumi-ink);
+    background-color: var(--lumi-surface);
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: "Outfit", "Plus Jakarta Sans", Arial, sans-serif;
+    color: var(--lumi-ink);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  button, a, input, textarea, select {
+    transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 160ms cubic-bezier(0.16, 1, 0.3, 1),
+      color 160ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 3px solid #EE7A13;
+    outline-offset: 2px;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Animaciones futuristas Lumi (respetan prefers-reduced-motion) */
+@keyframes lumi-orbit-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes lumi-orbit-ccw {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes lumi-breathe {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(245, 223, 145, 0.55), 0 0 44px rgba(217, 191, 104, 0.22);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 32px rgba(245, 223, 145, 0.85), 0 0 64px rgba(217, 191, 104, 0.38);
+  }
+}
+
+@keyframes lumi-wave-bar {
+  0%, 100% { transform: scaleY(0.35); opacity: 0.7; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes lumi-flash-alert {
+  0%, 100% { background-color: #FFF9E9; }
+  50% { background-color: #F5DF91; }
+}
+
+.lumi-orbit-slow {
+  animation: lumi-orbit-cw 14s linear infinite;
+}
+
+.lumi-orbit-reverse {
+  animation: lumi-orbit-ccw 9s linear infinite;
+}
+
+.lumi-core-breathe {
+  animation: lumi-breathe 3.4s ease-in-out infinite;
+}
+
+.lumi-wave-1 { animation: lumi-wave-bar 0.9s ease-in-out infinite; }
+.lumi-wave-2 { animation: lumi-wave-bar 0.9s ease-in-out 0.15s infinite; }
+.lumi-wave-3 { animation: lumi-wave-bar 0.9s ease-in-out 0.3s infinite; }
+.lumi-wave-4 { animation: lumi-wave-bar 0.9s ease-in-out 0.45s infinite; }
+
+.lumi-card-futuristic {
+  position: relative;
+  overflow: hidden;
+  background-image: radial-gradient(circle at top right, rgba(245, 223, 145, 0.16), transparent 55%);
+  box-shadow: 0 8px 24px -16px rgba(138, 111, 30, 0.25);
+}
+
+.lumi-card-futuristic::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 30%, rgba(245, 223, 145, 0.14) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lumi-card-futuristic:hover::after {
+  transform: translateX(100%);
+}
+
+.lumi-card-futuristic:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px -12px rgba(217, 191, 104, 0.42);
+}
+
+.lumi-flash-banner {
+  animation: lumi-flash-alert 1s ease-in-out 4;
+}
+
+/* Estética Eclipse: selección en Negro (#0B0B0D) con texto e iconos en Naranja (#FF8A1F) */
+.eclipse-selectable {
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.eclipse-active,
+.eclipse-selectable[aria-pressed="true"],
+.eclipse-selectable[aria-selected="true"],
+.eclipse-selectable[aria-current="page"] {
+  background-color: #0B0B0D !important;
+  color: #FF8A1F !important;
+  border-color: #EE7A13 !important;
+  box-shadow: 0 4px 16px -6px rgba(238, 122, 19, 0.45);
+}
+
+.eclipse-active svg,
+.eclipse-selectable[aria-pressed="true"] svg,
+.eclipse-selectable[aria-selected="true"] svg,
+.eclipse-selectable[aria-current="page"] svg {
+  color: #FF8A1F !important;
+}
+
+/* Destello blanco suave al cambiar de pantalla en el registro previo */
+@keyframes eclipse-soft-flash {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes eclipse-step-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.eclipse-flash-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.45) 65%, transparent 100%);
+  animation: eclipse-soft-flash 380ms ease-in-out forwards;
+}
+
+.eclipse-step-enter {
+  animation: eclipse-step-enter 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eclipse-flash-overlay {
+    display: none !important;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
